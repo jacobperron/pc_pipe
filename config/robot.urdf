@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="my_robot">
+  <link name="base_footprint">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Green"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.017"/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="base_link">
+    <inertial>
+      <mass value="2"/>
+      <origin xyz="0 0 0.0"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.5"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz=" 0 0 0.0308"/>
+      <geometry>
+        <sphere radius="0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0308"/>
+      <geometry>
+        <cylinder length="0.0611632" radius="0.16495"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_footprint_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.017"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+  </joint>
+  <link name="left_wheel_link">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.024" radius="0.036"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.024" radius="0.036"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_wheel_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0 0.1175 0.015"/>
+    <parent link="base_link"/>
+    <child link="left_wheel_link"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <link name="right_wheel_link">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.024" radius="0.036"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.024" radius="0.036"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_wheel_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0 -0.1175 0.015"/>
+    <parent link="base_link"/>
+    <child link="right_wheel_link"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0 0 1.5"/>
+    <origin rpy="0 0 0" xyz="0 0 0.04"/>
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+  </joint>
+  <link name="camera_link">
+    <inertial>
+      <mass value="0.001"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+      <always_on>true</always_on>
+      <update_rate>40</update_rate>
+      <left_joint>right_wheel_joint</left_joint>
+      <right_joint>left_wheel_joint</right_joint>
+      <wheel_separation>0.235</wheel_separation>
+      <wheel_diameter>0.072</wheel_diameter>
+      <wheel_torque>1.0</wheel_torque>
+      <!--wheelAcceleration>${wheel_accel}</wheelAcceleration-->
+      <command_topic>cmd_vel</command_topic>
+      <odometry_topic>odom</odometry_topic>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_footprint</robot_base_frame>
+    </plugin>
+    <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
+      <always_on>true</always_on>
+      <update_rate>100.0</update_rate>
+      <body_name>base_link</body_name>
+      <topic_name>ground_truth</topic_name>
+      <gaussian_noise>0</gaussian_noise>
+      <frame_name>map</frame_name>
+      <xyz_offsets>0 0 0</xyz_offsets>
+      <rpy_offsets>0 0 0</rpy_offsets>
+    </plugin>
+  </gazebo>
+  <gazebo reference="left_wheel_link">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>1.0</maxVel>
+  </gazebo>
+  <gazebo reference="right_wheel_link">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>1.0</maxVel>
+  </gazebo>
+  <!-- multi camera plugin -->
+  <gazebo>
+    <model name="camera_model">
+      <pose>0 0 0.5 0 0 3.14</pose>
+      <static>true</static>
+      <link name="camera_link">
+        <sensor type="multicamera" name="camera1">
+          <pose>0 -0.2 0 0 0 0</pose>
+          <update_rate>60</update_rate>
+          <visualize>true</visualize>
+          <camera name="left">
+            <horizontal_fov>1.3962634</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.02</near>
+              <far>300</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <!-- Noise is sampled independently per pixel on each frame.
+                   That pixel's noise value is added to each of its color
+                   channels, which at that point lie in the range [0,1]. -->
+              <mean>0.0</mean>
+              <stddev>0.007</stddev>
+            </noise>
+          </camera>
+          <camera name="right">
+            <pose>0 0.4 0 0 0 0</pose>
+            <horizontal_fov>1.3962634</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.02</near>
+              <far>300</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <!-- Noise is sampled independently per pixel on each frame.
+                   That pixel's noise value is added to each of its color
+                   channels, which at that point lie in the range [0,1]. -->
+              <mean>0.0</mean>
+              <stddev>0.007</stddev>
+            </noise>
+          </camera>
+          <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+            <ros>
+              <namespace>demo_cam</namespace>
+              <!-- topics need to be prefixed with camera_name for remapping -->
+              <!--remapping>mycamera/left/image_raw:=mycamera/left/image_demo</remapping>
+              <remapping>mycamera/right/image_raw:=mycamera/right/image_demo</remapping>
+              <remapping>mycamera/left/camera_info:=mycamera/left/camera_info_demo</remapping>
+              <remapping>mycamera/right/camera_info:=mycamera/right/camera_info_demo</remapping-->
+            </ros>
+
+            <camera_name>mycamera</camera_name>
+            <!-- Set to true to turn on triggering -->
+            <triggered>true</triggered>
+            <!-- frame_name>omit so it defaults to link name</frame_name-->
+          </plugin>
+        </sensor>
+      </link>
+    </model>
+  </gazebo>
+  <!-- end multicamera model/plugin -->
+</robot>
+

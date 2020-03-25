@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="model" default="$(find-pkg-share pc_pipe)/config/robot.urdf" />
+  <arg name="start_gazebo" default="false" />
+  <arg name="viz" default="false" />
+
+  <!-- Start Gazebo -->
+  <group if="$(var start_gazebo)">
+    <include file="$(find-pkg-share gazebo_ros)/launch/gazebo.launch.py">
+      <!--arg name="paused" value="true"/>
+      <arg name="use_sim_time" value="true"/>
+      <arg name="gui" value="true"/>
+      <arg name="recording" value="false"/>
+      <arg name="debug" value="false"/>
+      <arg name="verbose" value="true"/-->
+    </include>
+
+    <!-- Spawn robot in Gazebo -->
+    <node name="spawn_robot_urdf" pkg="gazebo_ros" exec="spawn_entity.py"
+      args="-file $(var model) -z 0.0 -entity my_robot" output="screen" />
+  </group>
+
+  <!-- TF description -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" exec="robot_state_publisher" output="screen">
+    <param name="robot_description" value="$(command 'cat $(var model)')"/>
+    <param name="use_sim_time" value="true" />
+  </node>
+
+  <group if="$(var viz)">
+    <node name="rviz" pkg="rviz2" exec="rviz2" args="-d $(find-pkg-share pc_pipe)/config/robot.rviz">
+      <param name="use_sim_time" value="true" />
+    </node>
+  </group>
+
+  <!-- Mock image filters -->
+  <node namespace="mycamera/left" name="image_filter_left" pkg="pc_pipe" exec="image_filter.py" output="screen">
+    <param name="use_sim_time" value="true" />
+  </node>
+  <node namespace="mycamera/right" name="image_filter_right" pkg="pc_pipe" exec="image_filter.py" output="screen">
+    <param name="use_sim_time" value="true" />
+  </node>
+
+  <!-- Stereo image pipeline -->
+  <include file="$(find-pkg-share pc_pipe)/launch/stereo_image_proc.launch.py">
+  </include>
+</launch>
