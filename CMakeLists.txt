@@ -11,6 +11,8 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 
+ament_environment_hooks(${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/66.pc_pipe.dsv.in)
+
 install(DIRECTORY config launch
   DESTINATION share/${PROJECT_NAME}
 )
@@ -23,5 +25,7 @@ if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+add_subdirectory(etc)
 
 ament_package()
