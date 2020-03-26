@@ -18,6 +18,7 @@ Fetch source dependencies:
         cd pc_pipe_ws
         wget https://raw.githubusercontent.com/jacobperron/pc_pipe/master/pc_pipe.repos
         vcs import src < pc_pipe.repos
+        rosdep install --from-paths src --ignore-src
 
 Build:
 
@@ -35,7 +36,7 @@ Launch the pipeline, including Gazebo simulator:
 
 Optional start a subscription to confirm point cloud messages are received:
 
-        ros2 ros2 topic echo --qos-reliability reliable --no-arr /mycamera/points2
+        ros2 topic echo --qos-reliability reliable --no-arr /mycamera/points2
 
 Trigger a stereo image capture:
 
