@@ -18,6 +18,7 @@ Fetch source dependencies:
         cd pc_pipe_ws
         wget https://raw.githubusercontent.com/jacobperron/pc_pipe/master/pc_pipe.repos
         vcs import src < pc_pipe.repos
+        rosdep install --from-paths src --ignore-src
 
 Build:
 
