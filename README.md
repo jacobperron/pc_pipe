@@ -4,13 +4,13 @@ Includes bringup scripts for a Gazebo simulation and [stereo_image_proc](https:/
 
 ## Depends
 
-- ROS 2 (Eloquent or later)
+- ROS 2 (Foxy or later)
 
 ## Build
 
 Source ROS 2 installation, for example:
 
-        source /opt/ros/eloquent/setup.bash
+        source foxy_ws/install/setup.bash
 
 Fetch source dependencies:
 
