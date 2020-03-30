@@ -35,7 +35,7 @@ Launch the pipeline, including Gazebo simulator:
 
 Optional start a subscription to confirm point cloud messages are received:
 
-        ros2 ros2 topic echo --qos-reliability reliable --no-arr /mycamera/points2
+        ros2 topic echo --qos-reliability reliable --no-arr /mycamera/points2
 
 Trigger a stereo image capture:
 
