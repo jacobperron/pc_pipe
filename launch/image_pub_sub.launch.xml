@@ -1,0 +1,14 @@
+<launch>
+  <arg name="width"  default="640" />
+  <arg name="height" default="480" />
+  <node namespace="mycamera" name="mock_image_pub" pkg="pc_pipe" exec="image_pub.py" output="screen">
+    <param name="width"  value="$(var width)"/>
+    <param name="height" value="$(var height)" />
+  </node>
+
+  <!-- Mock image filters -->
+  <node namespace="mycamera/left" name="image_filter_left" pkg="pc_pipe" exec="image_filter.py" output="screen">
+  </node>
+  <node namespace="mycamera/right" name="image_filter_right" pkg="pc_pipe" exec="image_filter.py" output="screen">
+  </node>
+</launch>
