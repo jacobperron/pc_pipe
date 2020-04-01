@@ -38,13 +38,14 @@ from launch_ros.descriptions import ComposableNode
 
 
 def generate_launch_description():
-    # TODO(jacobperron): Include image_proc launch file when it exists
     return LaunchDescription([
-        DeclareLaunchArgument(
-            name='approximate_sync', default_value='True',
-            description='Whether to use approximate synchronization of topics. Set to true if '
-                        'the left and right cameras do not produce exactly synced timestamps.'
-        ),
+        # We can't include this file in a <group> tag if it declares arguments
+        # Related issue: https://github.com/ros2/launch_ros/issues/114
+        # DeclareLaunchArgument(
+        #     name='approximate_sync', default_value='True',
+        #     description='Whether to use approximate synchronization of topics. Set to true if '
+        #                 'the left and right cameras do not produce exactly synced timestamps.'
+        # ),
         ComposableNodeContainer(
             package='rclcpp_components', node_executable='component_container',
             name='stereo_image_proc_container', namespace='', output='screen',
@@ -53,7 +54,7 @@ def generate_launch_description():
                     package='stereo_image_proc',
                     plugin='stereo_image_proc::DisparityNode',
                     namespace='/mycamera',
-                    parameters=[{'approximate_sync': LaunchConfiguration('approximate_sync'), 'use_sim_time': True}],
+                    parameters=[{'approximate_sync': True, 'use_sim_time': True}],
                     remappings=[
                         ('right/image_rect', 'right/image_filtered'),
                         ('left/image_rect', 'left/image_filtered'),
@@ -64,7 +65,7 @@ def generate_launch_description():
                     package='stereo_image_proc',
                     plugin='stereo_image_proc::PointCloudNode',
                     namespace='/mycamera',
-                    parameters=[{'approximate_sync': LaunchConfiguration('approximate_sync'), 'use_sim_time': True}],
+                    parameters=[{'approximate_sync': True, 'use_sim_time': True}],
                     remappings=[('left/image_rect_color', 'left/image_filtered')]
                 ),
             ],
