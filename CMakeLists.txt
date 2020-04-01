@@ -15,7 +15,7 @@ install(DIRECTORY config launch
   DESTINATION share/${PROJECT_NAME}
 )
 
-install(PROGRAMS pc_pipe/image_filter.py
+install(PROGRAMS pc_pipe/image_filter.py pc_pipe/image_pub.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
