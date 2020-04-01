@@ -14,9 +14,11 @@ class MockImageFilter(Node):
         self.pub = self.create_publisher(Image, 'image_filtered', 10)
 
     def image_callback(self, msg):
-        self.get_logger().info(f'Message received [{msg.header.stamp}]')
-        self.pub.publish(msg)
+        now = self.get_clock().now()
+        diff = (now.nanoseconds - rclpy.time.Time.from_msg(msg.header.stamp).nanoseconds) / 1e9
+        self.get_logger().info(f'Message received [{msg.header.stamp}]. Delay: {diff}')
 
+        self.pub.publish(msg)
 
 
 def main(args=None):
