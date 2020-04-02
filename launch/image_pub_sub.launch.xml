@@ -11,4 +11,7 @@
   </node>
   <node namespace="mycamera/right" name="image_filter_right" pkg="pc_pipe" exec="image_filter.py" output="screen">
   </node>
+
+  <!-- Mock point cloud publisher -->
+  <node namespace="mycamera" name="mock_point_cloud_pub" pkg="pc_pipe" exec="mock_point_cloud_pub" output="screen" />
 </launch>
