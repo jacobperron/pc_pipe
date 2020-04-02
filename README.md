@@ -41,3 +41,24 @@ Optional start a subscription to confirm point cloud messages are received:
 Trigger a stereo image capture:
 
         ros2 topic pub -1 mycamera/image_trigger std_msgs/msg/Empty
+
+## Launch without simulation
+
+Similar to the steps for launching the simulation, but with mock nodes for publishing images and producing a point cloud.
+
+Do this once per shell:
+
+        source pc_pipe_ws/install/setup.bash
+
+Launch the pipeline:
+
+        ros2 launch pc_pipe mock_bringup.launch.xml
+
+Optional start a subscription to confirm point cloud messages are received:
+
+        ros2 topic echo --qos-reliability reliable --no-arr /mycamera/points2
+
+Trigger a stereo image capture:
+
+        ros2 topic pub -1 mycamera/image_trigger std_msgs/msg/Empty
+
