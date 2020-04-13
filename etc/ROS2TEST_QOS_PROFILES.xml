@@ -5,7 +5,7 @@ xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/5.3.1/rti_dds_qos
   <!-- ## Ros2TestQosLibrary -->
   <!-- ################################################################### -->
   <qos_library name="Ros2TestQosLibrary">
-    <qos_profile name="Ros2TestDefaultQos" is_default_qos="true">
+    <qos_profile name="Ros2TestDefaultQos" base_name="BuiltinQosLib::Baseline.5.3.0" is_default_qos="true">
       <participant_qos>
         <wire_protocol>
           <!-- default DDS well known ports -->
@@ -20,27 +20,28 @@ xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/5.3.1/rti_dds_qos
           </rtps_well_known_ports>
           <rtps_reserved_port_mask>MASK_DEFAULT</rtps_reserved_port_mask>
         </wire_protocol>
-        <transport_builtin>
+        <!-- <transport_builtin>
           <mask>UDPv4</mask>
-          <!--mask>SHMEM</mask-->
-        </transport_builtin>
-        
+          <mask>SHMEM</mask>
+        </transport_builtin> -->
+
         <discovery>
           <accept_unknown_peers>true</accept_unknown_peers>
         </discovery>
-        
+
         <resource_limits>
-          <!-- increase max property size to accommodate flow controllers >
-          <participant_property_string_max_length>4096</participant_property_string_max_length -->
-          <!-- disabling type-code support >
+          <!-- increase max property size to accommodate flow controllers -->
+          <participant_property_string_max_length>4096</participant_property_string_max_length>
+          <!-- disabling type-code support -->
           <type_code_max_serialized_length>0</type_code_max_serialized_length>
-          <type_object_max_serialized_length>0</type_object_max_serialized_length -->
+          <type_object_max_serialized_length>0</type_object_max_serialized_length>
         </resource_limits>
 
         <property>
           <value>
+
             <!-- === Transport ============================================================================ -->
-            <!-- maximum message size >
+            <!-- maximum message size -->
             <element>
               <name>dds.transport.UDPv4.builtin.parent.message_size_max</name>
               <value>1250</value>
@@ -52,37 +53,41 @@ xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/5.3.1/rti_dds_qos
             <element>
               <name>dds.transport.UDPv4.builtin.recv_socket_buffer_size</name>
               <value>65535</value>
-            </element -->
-            
+            </element>
+
             <!-- === SHMEM Transport ====================================================================== -->
-            <!-- maximum message size >
+            <!-- maximum message size -->
             <element>
-              <name>dds.transport.shmem.builtin.received_message_count_max </name>
-              <value>512</value>
+              <name>dds.transport.shmem.builtin.parent.message_size_max </name>
+              <value>1048576</value>
             </element>
             <element>
               <name>dds.transport.shmem.builtin.receive_buffer_size </name>
-              <value>1048576</value>
-            </element -->
-            
+              <value>16777216</value>
+            </element>
+            <element>
+              <name>dds.transport.shmem.builtin.received_message_count_max</name>
+              <value>16</value>
+            </element>
+
             <!-- allow/deny lists -->
             <!-- we try to exclude all vmware virtual network interfaces -->
-            <!-- DISABLED element>
+            <!-- <element>
               <name>dds.transport.UDPv4.builtin.parent.deny_interfaces</name>
               <value>FOOBAR,192.168.0.11,192.168.99.99</value>
             </element>
             <element>
               <name>dds.transport.UDPv4.builtin.parent.deny_multicast_interfaces</name>
               <value>FOOBAR,192.168.0.11,192.168.99.99</value>
-            </element -->
-            <!-- DISABLED element>
+            </element>
+            <element>
               <name>dds.transport.UDPv4.builtin.parent.allow_interfaces</name>
               <value>FOOBAR,192.168.112.2</value>
             </element>
             <element>
               <name>dds.transport.UDPv4.builtin.parent.allow_multicast_interfaces</name>
               <value>FOOBAR,192.168.112.2</value>
-            </element -->
+            </element> -->
           </value>
         </property>
       </participant_qos>
@@ -90,6 +95,13 @@ xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/5.3.1/rti_dds_qos
       </publisher_qos>
       <subscriber_qos>
       </subscriber_qos>
+
+      <datawriter_qos>
+        <publish_mode>
+          <kind>ASYNCHRONOUS_PUBLISH_MODE_QOS</kind>
+        </publish_mode>
+      </datawriter_qos>
+
     </qos_profile>
   </qos_library>
 </dds>
