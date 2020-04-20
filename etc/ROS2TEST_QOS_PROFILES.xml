@@ -44,30 +44,30 @@ xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/5.3.1/rti_dds_qos
             <!-- maximum message size -->
             <element>
               <name>dds.transport.UDPv4.builtin.parent.message_size_max</name>
-              <value>1250</value>
+              <value>65536</value>
             </element>
             <element>
               <name>dds.transport.UDPv4.builtin.send_socket_buffer_size</name>
-              <value>65535</value>
+              <value>262144</value>
             </element>
             <element>
               <name>dds.transport.UDPv4.builtin.recv_socket_buffer_size</name>
-              <value>65535</value>
+              <value>4194304</value>
             </element>
 
             <!-- === SHMEM Transport ====================================================================== -->
             <!-- maximum message size -->
             <element>
               <name>dds.transport.shmem.builtin.parent.message_size_max </name>
-              <value>1048576</value>
+              <value>65536</value>
             </element>
             <element>
               <name>dds.transport.shmem.builtin.receive_buffer_size </name>
-              <value>16777216</value>
+              <value>8388608</value>
             </element>
             <element>
               <name>dds.transport.shmem.builtin.received_message_count_max</name>
-              <value>16</value>
+              <value>256</value>
             </element>
 
             <!-- allow/deny lists -->
@@ -101,7 +101,6 @@ xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/5.3.1/rti_dds_qos
           <kind>ASYNCHRONOUS_PUBLISH_MODE_QOS</kind>
         </publish_mode>
       </datawriter_qos>
-
     </qos_profile>
   </qos_library>
 </dds>
