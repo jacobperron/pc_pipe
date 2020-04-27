@@ -46,6 +46,10 @@ def generate_launch_description():
         #     description='Whether to use approximate synchronization of topics. Set to true if '
         #                 'the left and right cameras do not produce exactly synced timestamps.'
         # ),
+        DeclareLaunchArgument(
+            name='avoid_point_cloud_padding',
+            default_value='True',
+        ),
         ComposableNodeContainer(
             package='rclcpp_components', node_executable='component_container',
             name='stereo_image_proc_container', namespace='', output='screen',
@@ -54,7 +58,10 @@ def generate_launch_description():
                     package='stereo_image_proc',
                     plugin='stereo_image_proc::DisparityNode',
                     namespace='/mycamera',
-                    parameters=[{'approximate_sync': True, 'use_sim_time': True}],
+                    parameters=[{
+                        'approximate_sync': True,
+                        'use_sim_time': True,
+                    }],
                     remappings=[
                         ('right/image_rect', 'right/image_filtered'),
                         ('left/image_rect', 'left/image_filtered'),
@@ -65,7 +72,11 @@ def generate_launch_description():
                     package='stereo_image_proc',
                     plugin='stereo_image_proc::PointCloudNode',
                     namespace='/mycamera',
-                    parameters=[{'approximate_sync': True, 'use_sim_time': True}],
+                    parameters=[{
+                        'approximate_sync': True,
+                        'use_sim_time': True,
+                        'avoid_point_cloud_padding': LaunchConfiguration('avoid_point_cloud_padding'),
+                    }],
                     remappings=[('left/image_rect_color', 'left/image_filtered')]
                 ),
             ],
