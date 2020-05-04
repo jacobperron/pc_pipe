@@ -63,7 +63,7 @@ xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/5.3.1/rti_dds_qos
             </element>
             <element>
               <name>dds.transport.shmem.builtin.receive_buffer_size </name>
-              <value>8388608</value>
+              <value>16777216</value>
             </element>
             <element>
               <name>dds.transport.shmem.builtin.received_message_count_max</name>
