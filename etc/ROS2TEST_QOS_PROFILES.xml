@@ -88,6 +88,73 @@ xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/5.3.1/rti_dds_qos
               <name>dds.transport.UDPv4.builtin.parent.allow_multicast_interfaces</name>
               <value>FOOBAR,192.168.112.2</value>
             </element> -->
+
+            <!-- Fast: is 100 MB/sec (838 Mb/sec) flow controller -->
+            <element>
+              <name>dds.flow_controller.token_bucket.fast_flow.token_bucket.max_tokens</name>
+              <value>128</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.fast_flow.token_bucket.tokens_added_per_period</name>
+              <value>128</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.fast_flow.token_bucket.bytes_per_token</name>
+              <value>8192</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.fast_flow.token_bucket.period.sec</name>
+              <value>0</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.fast_flow.token_bucket.period.nanosec</name>
+              <value>10000000</value>
+            </element>
+
+            <!-- medium: 25 MB/sec (209 Mb/sec) flow controller -->
+            <element>
+              <name>dds.flow_controller.token_bucket.medium_flow.token_bucket.max_tokens</name>
+              <value>32</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.medium_flow.token_bucket.tokens_added_per_period</name>
+              <value>32</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.medium_flow.token_bucket.bytes_per_token</name>
+              <value>8192</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.medium_flow.token_bucket.period.sec</name>
+              <value>0</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.medium_flow.token_bucket.period.nanosec</name>
+              <value>10000000</value>
+            </element>
+
+            <!-- slow: 6.25 MB/sec (52 Mb/sec) flow controller -->
+            <element>
+              <name>dds.flow_controller.token_bucket.slow_flow.token_bucket.max_tokens</name>
+              <value>8</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.slow_flow.token_bucket.tokens_added_per_period</name>
+              <value>8</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.slow_flow.token_bucket.bytes_per_token</name>
+              <value>8192</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.slow_flow.token_bucket.period.sec</name>
+              <value>0</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.slow_flow.token_bucket.period.nanosec</name>
+              <value>10000000</value>
+            </element>
+
           </value>
         </property>
       </participant_qos>
@@ -99,6 +166,7 @@ xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/5.3.1/rti_dds_qos
       <datawriter_qos>
         <publish_mode>
           <kind>ASYNCHRONOUS_PUBLISH_MODE_QOS</kind>
+          <flow_controller_name>dds.flow_controller.token_bucket.medium_flow</flow_controller_name>
         </publish_mode>
       </datawriter_qos>
     </qos_profile>
