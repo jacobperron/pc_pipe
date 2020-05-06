@@ -4,6 +4,7 @@
   <arg name="start_gazebo" default="false" />
   <arg name="viz" default="false" />
   <arg name="stereo_pipeline_single_process" default="true" />
+  <arg name="avoid_point_cloud_padding" default="true" />
 
   <!-- Start Gazebo -->
   <group if="$(var start_gazebo)">
@@ -44,6 +45,7 @@
   <!-- Stereo image pipeline -->
   <group if="$(var stereo_pipeline_single_process)">
     <include file="$(find-pkg-share pc_pipe)/launch/stereo_image_proc.launch.py">
+      <arg name="avoid_point_cloud_padding" value="$(var avoid_point_cloud_padding)" />
     </include>
   </group>
   <group unless="$(var stereo_pipeline_single_process)">
@@ -57,6 +59,7 @@
     <node namespace="mycamera" pkg="stereo_image_proc" exec="point_cloud_node" output="screen">
       <param name="approximate_sync" value="true" />
       <param name="use_sim_time" value="true" />
+      <param name="avoid_point_cloud_padding" value="$(var avoid_point_cloud_padding)" />
       <remap from="left/image_rect_color" to="left/image_filtered" />
     </node>
   </group>
