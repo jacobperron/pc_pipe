@@ -4,7 +4,7 @@
   <arg name="start_gazebo" default="false" />
   <arg name="viz" default="false" />
   <arg name="stereo_pipeline_single_process" default="true" />
-  <arg name="avoid_point_cloud_padding" default="True" />
+  <arg name="avoid_point_cloud_padding" default="true" />
 
   <!-- Start Gazebo -->
   <group if="$(var start_gazebo)">
