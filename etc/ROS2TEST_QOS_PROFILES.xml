@@ -31,10 +31,11 @@ xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/5.3.1/rti_dds_qos
 
         <resource_limits>
           <!-- increase max property size to accommodate flow controllers -->
-          <participant_property_string_max_length>4096</participant_property_string_max_length>
+          <participant_property_string_max_length>8192</participant_property_string_max_length>
           <!-- disabling type-code support -->
           <type_code_max_serialized_length>0</type_code_max_serialized_length>
           <type_object_max_serialized_length>0</type_object_max_serialized_length>
+          <participant_property_list_max_length>1024</participant_property_list_max_length>
         </resource_limits>
 
         <property>
