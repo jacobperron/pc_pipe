@@ -51,7 +51,7 @@ def generate_launch_description():
             default_value='True',
         ),
         ComposableNodeContainer(
-            package='rclcpp_components', node_executable='component_container',
+            package='rclcpp_components', executable='component_container',
             name='stereo_image_proc_container', namespace='', output='screen',
             composable_node_descriptions=[
                 ComposableNode(
