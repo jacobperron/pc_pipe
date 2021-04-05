@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <robot name="my_robot">
   <link name="base_footprint">
     <visual>
