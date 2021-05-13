@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/5.3.1/rti_dds_qos_profiles.xsd" version="5.3.1">
+  <!-- ################################################################### -->
+  <!-- ## Ros2TestQosLibrary -->
+  <!-- ################################################################### -->
+  <qos_library name="Ros2TestQosLibrary">
+    <qos_profile name="Ros2TestDefaultQos" is_default_qos="true">
+      <participant_qos>
+        <!-- <transport_builtin>
+					<mask>MASK_NONE</mask>
+				</transport_builtin>
+				<property>
+					<value>
+						<element>
+							<name>dds.transport.load_plugins</name>
+							<value>dds.transport.TCPv4.tcp1</value>
+						</element>
+						<element>
+							<name>dds.transport.TCPv4.tcp1.library</name>
+							<value>nddstransporttcp</value>
+						</element>
+						<element>
+							<name>dds.transport.TCPv4.tcp1.create_function</name>
+							<value>NDDS_Transport_TCPv4_create</value>
+						</element>
+						<element>
+							<name>dds.transport.TCPv4.tcp1.parent.classid</name>
+							<value>NDDS_TRANSPORT_CLASSID_TCPV4_LAN</value>
+						</element>
+					</value>
+          <value>
+            <element>
+              <name>dds.transport.TCPv4.tcp1.server_bind_port</name>
+              <value>7100</value>
+            </element>
+          </value>
+				</property>
+        
+        <discovery>
+          <initial_peers>
+            <element>tcpv4_lan://localhost:7101</element>
+          </initial_peers>
+          <accept_unknown_peers>true</accept_unknown_peers>
+        </discovery> -->
+        
+        <!-- <resource_limits>
+          <max_samples>-1</max_samples> -->
+          <!-- increase max property size to accommodate flow controllers -->
+          <!-- <participant_property_string_max_length>4096</participant_property_string_max_length> -->
+          <!-- disabling type-code support -->
+          <!-- <type_code_max_serialized_length>0</type_code_max_serialized_length>
+          <type_object_max_serialized_length>0</type_object_max_serialized_length>
+        </resource_limits> -->
+      </participant_qos>
+      <publisher_qos>
+      </publisher_qos>
+      <subscriber_qos>
+      </subscriber_qos>
+      <datareader_qos>
+        <resource_limits>
+          <max_samples>1024</max_samples>
+          <max_samples_per_instance>-1</max_samples_per_instance>
+        </resource_limits>
+      </datareader_qos>
+    </qos_profile>
+  </qos_library>
+</dds>
+
