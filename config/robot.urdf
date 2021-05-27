@@ -197,7 +197,7 @@
           </camera>
           <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
             <ros>
-              <namespace>demo_cam</namespace>
+              <!--namespace>demo_cam</namespace-->
               <!-- topics need to be prefixed with camera_name for remapping -->
               <!--remapping>mycamera/left/image_raw:=mycamera/left/image_demo</remapping>
               <remapping>mycamera/right/image_raw:=mycamera/right/image_demo</remapping>
