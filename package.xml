@@ -9,10 +9,11 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <exec_depend>gazebo11</exec_depend>
-  <exec_depend>gazebo_ros_pkgs</exec_depend>
+  <exec_depend>ign-gazebo6</exec_depend>
   <exec_depend>launch_ros</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>ros_ign_bridge</exec_depend>
+  <exec_depend>ros_ign_gazebo</exec_depend>
   <exec_depend>rviz2</exec_depend>
   <exec_depend>stereo_image_proc</exec_depend>
 

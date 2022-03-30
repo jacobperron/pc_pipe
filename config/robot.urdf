@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <robot name="my_robot">
   <link name="base_footprint">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
+    </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -103,21 +107,30 @@
     </inertial>
   </link>
   <gazebo>
-    <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+    <pluginfilename="ignition-gazebo-diff-drive-system" name="ignition::gazebo::systems::DiffDrive">
+      <left_joint>right_wheel_joint</left_joint>
+      <right_joint>left_wheel_joint</right_joint>
+      <wheel_separation>0.235</wheel_separation>
+      <wheel_radius>0.036</wheel_radius>
+      <odom_publish_frequency>1</odom_publish_frequency>
+      <topic>cmd_vel</topic>
+      <odom_topic>odom</odom_topic>
+    </plugin>
+    <!-- <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
       <always_on>true</always_on>
       <update_rate>40</update_rate>
       <left_joint>right_wheel_joint</left_joint>
       <right_joint>left_wheel_joint</right_joint>
       <wheel_separation>0.235</wheel_separation>
       <wheel_diameter>0.072</wheel_diameter>
-      <wheel_torque>1.0</wheel_torque>
+      <wheel_torque>1.0</wheel_torque> -->
       <!--wheelAcceleration>${wheel_accel}</wheelAcceleration-->
-      <command_topic>cmd_vel</command_topic>
+      <!-- <command_topic>cmd_vel</command_topic>
       <odometry_topic>odom</odometry_topic>
       <odometry_frame>odom</odometry_frame>
       <robot_base_frame>base_footprint</robot_base_frame>
-    </plugin>
-    <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
+    </plugin> -->
+    <!-- <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
       <always_on>true</always_on>
       <update_rate>100.0</update_rate>
       <body_name>base_link</body_name>
@@ -126,7 +139,7 @@
       <frame_name>map</frame_name>
       <xyz_offsets>0 0 0</xyz_offsets>
       <rpy_offsets>0 0 0</rpy_offsets>
-    </plugin>
+    </plugin> -->
   </gazebo>
   <gazebo reference="left_wheel_link">
     <mu1>1.0</mu1>
@@ -195,25 +208,24 @@
               <stddev>0.007</stddev>
             </noise>
           </camera>
-          <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-            <ros>
+          <!-- <plugin name="camera_controller" filename="libgazebo_ros_camera.so"> -->
+            <!-- <ros> -->
               <!--namespace>demo_cam</namespace-->
               <!-- topics need to be prefixed with camera_name for remapping -->
               <!--remapping>mycamera/left/image_raw:=mycamera/left/image_demo</remapping>
               <remapping>mycamera/right/image_raw:=mycamera/right/image_demo</remapping>
               <remapping>mycamera/left/camera_info:=mycamera/left/camera_info_demo</remapping>
               <remapping>mycamera/right/camera_info:=mycamera/right/camera_info_demo</remapping-->
-            </ros>
+            <!-- </ros> -->
 
-            <camera_name>mycamera</camera_name>
+            <!-- <camera_name>mycamera</camera_name> -->
             <!-- Set to true to turn on triggering -->
-            <triggered>true</triggered>
+            <!-- <triggered>true</triggered> -->
             <!-- frame_name>omit so it defaults to link name</frame_name-->
-          </plugin>
+          <!-- </plugin> -->
         </sensor>
       </link>
     </model>
   </gazebo>
   <!-- end multicamera model/plugin -->
 </robot>
-
