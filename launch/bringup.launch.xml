@@ -19,10 +19,11 @@
 
     <!-- Spawn robot in Gazebo -->
     <node name="spawn_robot_urdf" pkg="ros_ign_gazebo" exec="create"
-      args="-world default -file $(var model) -z 0.0 -entity my_robot" output="screen" />
+      args="-world default -file $(var model) -z 0.0 -entity my_robot" output="screen"></node>
+
       <node
         pkg="ros_ign_bridge"
-        type="parameter_bridge"
+        exec="parameter_bridge"
         name="$(anon ros_ign_bridge)"
         output="screen"
         args="/model/vehicle/odometry@nav_msgs/Odometry@ignition.msgs.Odometry /cmd_vel@geometry_msgs/Twist@ignition.msgs.Twist ">
