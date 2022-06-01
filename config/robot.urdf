@@ -14,7 +14,7 @@
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0.017"/>
-      <geometry>g
+      <geometry>
         <box size="0.001 0.001 0.001"/>
       </geometry>
     </collision>
@@ -102,11 +102,11 @@
   <link name="camera_link">
     <inertial>
       <mass value="0.001"/>
-      <origin rpygg="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
     </inertial>
   </link>
-  <gazebo>g
+  <gazebo>
     <plugin filename="ignition-gazebo-diff-drive-system" name="ignition::gazebo::systems::DiffDrive">
       <left_joint>right_wheel_joint</left_joint>
       <right_joint>left_wheel_joint</right_joint>
