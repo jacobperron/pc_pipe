@@ -8,7 +8,7 @@
 
   <!-- Start Gazebo -->
   <group if="$(var start_gazebo)">
-    <include file="$(find-pkg-share gazebo_ros)/launch/gazebo.launch.py">
+    <include file="$(find-pkg-share ros_ign_gazebo)/launch/ign_gazebo.launch.py">
       <!--arg name="paused" value="true"/>
       <arg name="use_sim_time" value="true"/>
       <arg name="gui" value="true"/>
@@ -18,8 +18,18 @@
     </include>
 
     <!-- Spawn robot in Gazebo -->
-    <node name="spawn_robot_urdf" pkg="gazebo_ros" exec="spawn_entity.py"
-      args="-file $(var model) -z 0.0 -entity my_robot" output="screen" />
+    <node name="spawn_robot_urdf" pkg="ros_ign_gazebo" exec="create"
+      args="-world default -file $(var model) -z 0.0 -entity my_robot" output="screen"></node>
+
+      <!-- When https://github.com/ignitionrobotics/ign-msgs/pull/224 gets merged this will
+      have to be changed to support OdometryWithCovariance and TwistWithCovariance /-->
+      <node
+        pkg="ros_ign_bridge"
+        exec="parameter_bridge"
+        name="$(anon ros_ign_bridge)"
+        output="screen"
+        args="/model/vehicle/odometry@nav_msgs/Odometry@ignition.msgs.Odometry /cmd_vel@geometry_msgs/Twist@ignition.msgs.Twist ">
+      </node>
   </group>
 
   <!-- TF description -->
